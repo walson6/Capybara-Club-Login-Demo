@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Capybara Social Club</h2>
+    <input type="email" placeholder="Email" id="email">
+    <input type="password" placeholder="Password" id="password">
+    <button onclick="signIn()">Sign In</button>
+    <button onclick="signUp()">Sign Up</button>
+    <p id="errorMessage" style="color: #fff;"></p>
+    <p><a href="#" onclick="forgotPassword()">Forgot Password?</a></p>
+</div>
+
+<!-- Include the Firebase SDK scripts -->
+<!-- Use version 8.x.x of Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+
+<!-- Your Firebase configuration script -->
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDP6bq_RfqFgcWnGsjI8l8humdOWVh6_qw",
+        authDomain: "login-page-cf944.firebaseapp.com",
+        projectId: "login-page-cf944",
+        storageBucket: "login-page-cf944.appspot.com",
+        messagingSenderId: "692298197878",
+        appId: "1:692298197878:web:875bdd282987fe6b79e857"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+</script>
+
+<!-- Your login and signup scripts -->
+<script>
+    function signIn() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const errorMessage = document.getElementById('errorMessage');
+
+        if (!email || !password) {
+            errorMessage.textContent = "Please enter a valid email and password.";
+            return;
+        }
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(() => {
+                window.location.href = 'page2.html'; // Redirect to the landing page after login
+            })
+            .catch(error => {
+                errorMessage.textContent = "Wrong email or password";
+            });
+    }
+
+    function signUp() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const errorMessage = document.getElementById('errorMessage');
+
+        if (!email || !password) {
+            errorMessage.textContent = "Please enter a valid email and password.";
+            return;
+        }
+
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                alert('Account created successfully!');
+                window.location.href = 'page2.html'; // Redirect to the landing page after signup
+            })
+            .catch(error => {
+                errorMessage.textContent = "Wrong email or password";
+            });
+    }
+
+    function forgotPassword() {
+        const email = document.getElementById('email').value;
+        const errorMessage = document.getElementById('errorMessage');
+
+        if (!email) {
+            errorMessage.textContent = "Please enter your email to reset the password.";
+            return;
+        }
+
+        firebase.auth().sendPasswordResetEmail(email)
+            .then(() => {
+                errorMessage.textContent = "Password reset email sent. Check your inbox.";
+            })
+            .catch(error => {
+                errorMessage.textContent = error.message;
+            });
+    }
+</script>
+
+</body>
+</html>

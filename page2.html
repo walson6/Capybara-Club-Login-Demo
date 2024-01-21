@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Capybara Social Club!</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Welcome to the Capybara Social Club!</h2>
+    <p class="creative-element">You have successfully logged in!</p>
+    <button onclick="signOut()">Sign Out</button>
+</div>
+
+<!-- Include the Firebase SDK scripts -->
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+
+<!-- Your Firebase configuration script -->
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDP6bq_RfqFgcWnGsjI8l8humdOWVh6_qw",
+        authDomain: "login-page-cf944.firebaseapp.com",
+        projectId: "login-page-cf944",
+        storageBucket: "login-page-cf944.appspot.com",
+        messagingSenderId: "692298197878",
+        appId: "1:692298197878:web:875bdd282987fe6b79e857"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Check if there's a user signed in
+    firebase.auth().onAuthStateChanged(user => {
+        if (!user) {
+            // If no user is signed in, redirect to index page
+            window.location.href = 'index.html';
+        }
+    });
+
+    // Function to check Firebase initialization
+    function checkFirebaseInit(callback) {
+        if (firebase.auth().currentUser) {
+            callback();
+        } else {
+            setTimeout(() => checkFirebaseInit(callback), 100);
+        }
+    }
+</script>
+
+<!-- Your signout script -->
+<script>
+    function signOut() {
+        checkFirebaseInit(() => {
+            firebase.auth().signOut().then(() => {
+                window.location.href = 'index.html'; // Redirect to the index page after signout
+            }).catch((error) => {
+                alert(error.message);
+            });
+        });
+    }
+</script>
+
+</body>
+</html>
