@@ -11,18 +11,25 @@
 <div class="login-container">
     <h2>Welcome to the Capybara Social Club!</h2>
     <p class="creative-element">You have successfully logged in!</p>
+    <input placeholder="Say something" type="text" id="say_something"/>
+    <input placeholder="Favorite food" type="text" id="favorite_food"/>
+    <button id="save" onclick="save()">Save</button>
+    <button id="remove" onclick="remove()">Remove</button>
     <button onclick="signOut()">Sign Out</button>
 </div>
 
 <!-- Include the Firebase SDK scripts -->
 <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+
 
 <!-- Your Firebase configuration script -->
 <script>
     const firebaseConfig = {
         apiKey: "AIzaSyDP6bq_RfqFgcWnGsjI8l8humdOWVh6_qw",
         authDomain: "login-page-cf944.firebaseapp.com",
+        databaseURL: "https://login-page-cf944-default-rtdb.firebaseio.com",
         projectId: "login-page-cf944",
         storageBucket: "login-page-cf944.appspot.com",
         messagingSenderId: "692298197878",
@@ -64,4 +71,7 @@
 </script>
 
 </body>
+
+<script src="index.js"></script>
+
 </html>
